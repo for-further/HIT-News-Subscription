@@ -25,7 +25,8 @@ m = re.findall(r"""'/news/ + # date
 str = ""
 T = time.strftime('%Y/%m-%d', time.localtime(time.time()))
 #T = "2014/10-24"
-URL = []
+
+URL = []
 Title = []
 for i in m:
         date = i[7:17]
@@ -35,14 +36,17 @@ for i in m:
         l = i.find("htm")
         url = "http://today.hit.edu.cn"
         url += i[1:l+3]
+        cnt = URL.count(url)
+        if(cnt != 0):
+                continue
         URL.append(url)
-        #print  url
+        print  url
         
         news = ""
         r = i.find("title=")
         news += i[r+7:n-2]
         Title.append(news)
-        #print news
+        print news
 
         str += news + "\n" + url + "\n\n"
 
