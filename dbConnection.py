@@ -16,8 +16,11 @@ db = web.database(
 def get_insert(_table, _openID, _keyword):
     return db.insert(_table, openID = _openID, keyword = _keyword)
 
-def get_insert_news(_table, _url, _title):
-    return db.insert(_table, url = _url, title = _title)
+def get_insert_news(_table, _url, _title, _date):
+    return db.insert(_table, url = _url, title = _title, date = _date)
+
+def get_insert_feedback(_table, _user, _fktime, _fkcontent):
+    return db.insert(_table, user = _user, fktime = _fktime, fkcontent = _fkcontent)
 
 def get_all(_table):
     return db.select(_table, order = 'id')

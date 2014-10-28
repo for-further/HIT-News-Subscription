@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
+import sae
+import re
 import hashlib
 import web
 import lxml
 import time
+import sys
 import os
+import urllib
 import urllib2,json
 import dbConnection as db
 from lxml import etree
- 
 class WeixinInterface:
     
     def __init__(self):
@@ -45,16 +48,15 @@ class WeixinInterface:
         if msgType == "event":
             mscontent = xml.find("Event").text
             if mscontent == "subscribe":
-                reply = u'''输入  -a[空格]关键字  来新增关键字，输入  -d[空格]关键字  来删除一条已经添加的关键字， 输入 -s 来查看当前订阅的关键字， 输入 news 来查看当天的相关新闻。 '''
+                reply = u'''您好，欢迎关注工大新闻！\n输入-a[空格][关键字]来新增关键字，输入-d[空格][关键字]来删除一条已经添加的关键字，输入-s来查看当前订阅的关键字， 输入news来查看当天的相关新闻，如果您有什么意见，请输入 -f[空格]反馈信息 来提交意见。'''
                 return self.render.reply_text(fromUser,toUser,int(time.time()), reply)
             if mscontent == "unsubscribe":
                 reply = u'''我知道当前的功能很简单，但是我会慢慢改进，欢迎以后再来！'''
                 return self.render.reply_text(fromUser,toUser,int(time.time()), reply)
         elif msgType == "text":
-            #return self.render.reply_text(fromUser,toUser,int(time.time()), "success")
             content=xml.find("Content").text#获得用户所输入的内容
             if content == "-h":
-                reply = u'''输入  -a[空格]关键字  来新增关键字，输入  -d[空格]关键字  来删除一条已经添加的关键字， 输入 -s 来查看当前订阅的关键字， 输入 news 来查看当天的相关新闻。 '''
+                reply = u'''输入-a[空格][关键字]来新增关键字，输入-d[空格][关键字]来删除一条已经添加的关键字，输入-s来查看当前订阅的关键字， 输入news来查看当天的相关新闻，如果您有什么意见，请输入 -f[空格]反馈信息 来提交意见。示例：-a 哈工大。'''
                 return self.render.reply_text(fromUser,toUser,int(time.time()), reply)
             elif content == "-s":
                 keyword = []
@@ -77,31 +79,35 @@ class WeixinInterface:
                 #return self.render.reply_text(fromUser,toUser,int(time.time()), "123")
                 
                 #return self.render.reply_text(fromUser,toUser,int(time.time()), '#')
-                #return self.render.reply_text(fromUser,toUser,int(time.time()), "123456")
                 
                 ret = ""
-                cnt = 1
+                T = time.strftime('%Y/%m/%d', time.localtime(time.time()))
+                
                 for x in db.get_all('News'):
-                    #cnt = cnt + 1
+                    if(cmp(x.date, T) != 0):
+                        continue
                     for key in keyword:
                         if x.title.find(key) != -1:
-                            #cnt = cnt + 1
                             ret += x.title + "\n" + x.url + "\n"
                             break
                 if ret == "":
-                    return self.render.reply_text(fromUser,toUser,int(time.time()), "No news yet!") 
+                    return self.render.reply_text(fromUser,toUser,int(time.time()), "今天到目前为止还没有与您订阅关键字有关的新闻，请持续关注。") 
                 return self.render.reply_text(fromUser,toUser,int(time.time()), ret)
             else:
                 if content.find("-a") == 0:
                     tmp = content[3: len(content)]
+                    cnt = 0
                     #return self.render.reply_text(fromUser,toUser,int(time.time()), "tmp")
                     for user in db.get_all('User'):
                         #return self.render.reply_text(fromUser,toUser,int(time.time()), "already exists!")
                         if (user.keyword == tmp) and (user.openID == fromUser):
-                            return self.render.reply_text(fromUser,toUser,int(time.time()), "already exists!")
-                    
+                            return self.render.reply_text(fromUser,toUser,int(time.time()), "您已经关注了此关键字了呀！")
+                        if (user.openID == fromUser):
+                            cnt += 1
+                    if cnt >= 10:
+                        return self.render.reply_text(fromUser,toUser,int(time.time()), "关键词的上限为10个，请使用 -d[空格]关键字 来删除一些关键字吧~")
                     db.get_insert('User', fromUser, tmp)
-                    return self.render.reply_text(fromUser,toUser,int(time.time()), "success.")
+                    return self.render.reply_text(fromUser,toUser,int(time.time()), "插入成功。")
                 elif content.find("-d") == 0:
                     #return self.render.reply_text(fromUser,toUser,int(time.time()), "123")
                     tmp = content[3: len(content)]
@@ -112,11 +118,16 @@ class WeixinInterface:
                             flag = 1
                     
                     if flag == 1:
-                        return self.render.reply_text(fromUser,toUser,int(time.time()), "success.")
+                        return self.render.reply_text(fromUser,toUser,int(time.time()), "删除成功。")
                     else:
-                        return self.render.reply_text(fromUser,toUser,int(time.time()), "no such keyword!")
+                        return self.render.reply_text(fromUser,toUser,int(time.time()), "您并没有订阅此关键字。")
+                elif content.find("-f") == 0:
+                    tmp = content[3: len(content)]
+                    fktime = time.strftime('%Y/%m/%d %H:%M',time.localtime())
+                    db.get_insert_feedback('feedback', fromUser, fktime, tmp)
+                    return self.render.reply_text(fromUser,toUser,int(time.time()), "您的反馈信息已经提交，感谢您的支持！")
                 else:
-                    return self.render.reply_text(fromUser,toUser,int(time.time()), "no such method!")
+                    return self.render.reply_text(fromUser,toUser,int(time.time()), "没有这样的命令！请输入 -h 来查看帮助。")
 
                     
             return self.render.reply_text(fromUser,toUser,int(time.time()), ret)
