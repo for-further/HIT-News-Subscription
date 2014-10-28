@@ -1,0 +1,14 @@
+$def with(feedback)
+        <table border="1" align = center>
+            <tr>
+                <th>序号</th>
+                <th>时间</th>
+                <th>反馈内容</th>            
+            </tr>
+            $for item in feedback:
+            <tr>
+                <td id="tdstyle">$item.id</td>
+                <td id="tdstyle">$item.fktime</td>
+                <td id="tdstyle">$item.fkcontent</td>                 
+            </tr>
+        </table>

@@ -1,0 +1,42 @@
+name: hitnews
+version: 2
+libraries:
+- name: webpy
+  version: "0.36"
+- name: lxml
+  version: "2.3.4"
+
+cron:
+- description: timing_task
+  url: /today
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /acm
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /news
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /studyathit
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /yzb
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /zsb
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /hqjt
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /ygb
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /usp
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /jwc
+  schedule: "*/5 * * * *"
+- description: timing_task
+  url: /hituc
+  schedule: "*/5 * * * *"
