@@ -15,8 +15,8 @@ class home:
         self.templates_root = os.path.join(self.app_root, 'templates')
         self.render = web.template.render(self.templates_root)
     def GET(self):
-        #db.get_insert_news('News', "12312313123", "Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©Ö£²©")
-        #return render.hello("ÄãºÃ")
+        #db.get_insert_news('News', "12312313123", "éƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åšéƒ‘åš")
+        #return render.hello("ä½ å¥½")
         m = re.findall(r"""'/news/ + # date
                     \w * # 2014
                     / #/
@@ -59,7 +59,7 @@ class home:
                 URL.append(url)
                 #print  url
                 
-                #if title.find("µçÆø"):
+                #if title.find("ç”µæ°”"):
                 #    return render.hello("123")
                 db.get_insert_news('News', str(url), str(title))
 
