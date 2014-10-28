@@ -48,7 +48,7 @@ class WeixinInterface:
         if msgType == "event":
             mscontent = xml.find("Event").text
             if mscontent == "subscribe":
-                reply = u'''您好，欢迎关注工大新闻！\n输入-a[空格][关键字]来新增关键字，输入-d[空格][关键字]来删除一条已经添加的关键字，输入-s来查看当前订阅的关键字， 输入news来查看当天的相关新闻，如果您有什么意见，请输入 -f[空格]反馈信息 来提交意见。'''
+                reply = u'''您好，欢迎关注工大新闻！\n输入-a[空格][关键字]来新增关键字，输入-d[空格][关键字]来删除一条已经添加的关键字，输入-s来查看当前订阅的关键字， 输入-g xxxx/xx/xx来查看在xxxx年xx天xx日的相关新闻，输入news来查看当天的相关新闻，如果您有什么意见，请输入 -f[空格]反馈信息 来提交意见。'''
                 return self.render.reply_text(fromUser,toUser,int(time.time()), reply)
             if mscontent == "unsubscribe":
                 reply = u'''我知道当前的功能很简单，但是我会慢慢改进，欢迎以后再来！'''
@@ -56,7 +56,7 @@ class WeixinInterface:
         elif msgType == "text":
             content=xml.find("Content").text#获得用户所输入的内容
             if content == "-h":
-                reply = u'''输入-a[空格][关键字]来新增关键字，输入-d[空格][关键字]来删除一条已经添加的关键字，输入-s来查看当前订阅的关键字， 输入news来查看当天的相关新闻，如果您有什么意见，请输入 -f[空格]反馈信息 来提交意见。示例：-a 哈工大。'''
+                reply = u'''输入-a[空格][关键字]来新增关键字，输入-d[空格][关键字]来删除一条已经添加的关键字，输入-s来查看当前订阅的关键字， 输入-g xxxx/xx/xx来查看在xxxx年xx天xx日的相关新闻，输入news来查看当天的相关新闻，如果您有什么意见，请输入 -f[空格]反馈信息 来提交意见。示例：-a 哈工大。'''
                 return self.render.reply_text(fromUser,toUser,int(time.time()), reply)
             elif content == "-s":
                 keyword = []
@@ -126,6 +126,26 @@ class WeixinInterface:
                     fktime = time.strftime('%Y/%m/%d %H:%M',time.localtime())
                     db.get_insert_feedback('feedback', fromUser, fktime, tmp)
                     return self.render.reply_text(fromUser,toUser,int(time.time()), "您的反馈信息已经提交，感谢您的支持！")
+                elif content.find("-g") == 0:
+                    #return self.render.reply_text(fromUser,toUser,int(time.time()), "123")
+                    keyword = []
+            	    for user in db.get_all('User'):
+                        if user.openID == fromUser:
+                            keyword.append(user.keyword)
+                    keyword = db.unique(keyword)
+                    T = content[3: len(content)]
+                    ret = ""
+                    for x in db.get_all('News'):
+                        if(cmp(x.date, T) != 0):
+                            continue
+                        #return self.render.reply_text(fromUser,toUser,int(time.time()), T)    
+                        for key in keyword:
+                            if x.title.find(key) != -1:
+                                ret += x.title + "\n" + x.url + "\n"
+                                break
+                    if ret == "":
+                        return self.render.reply_text(fromUser,toUser,int(time.time()), "当天没有与您关键字相关的新闻，或者请查看命令输入格式是否正确，例如-g 2014/10/26。注意当前只能查询到10月28日以后的一些新闻。") 
+                    return self.render.reply_text(fromUser,toUser,int(time.time()), ret)
                 else:
                     return self.render.reply_text(fromUser,toUser,int(time.time()), "没有这样的命令！请输入 -h 来查看帮助。")
 
