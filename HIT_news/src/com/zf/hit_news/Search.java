@@ -9,18 +9,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 public class Search extends ActionBarActivity {
 
 	private ImageView searchtoHome;
+	public EditText et;
+	private Button searchsub;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search);
 		searchtoHome=(ImageView)findViewById(R.id.searchtoHome);
+		et=(EditText)findViewById(R.id.searchtext);
+		searchsub=(Button)findViewById(R.id.searchsub);
 		Listener listener=new Listener();
 		searchtoHome.setOnClickListener(listener);
+		searchsub.setOnClickListener(listener);
 	}
 	class Listener implements OnClickListener{
 
@@ -29,8 +36,13 @@ public class Search extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			if(v.getId()==R.id.searchtoHome)
 			{
-				Intent intent = new Intent(Search.this,Home.class);
-				startActivity(intent);
+//				Intent intent = new Intent(Search.this,Home.class);
+//				startActivity(intent);
+				finish();
+			}
+			else if(v.getId()==R.id.searchsub){
+				String text=et.getText().toString().trim();
+				System.out.println(text);
 			}
 		}
 		
