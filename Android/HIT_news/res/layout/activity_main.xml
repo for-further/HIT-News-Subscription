@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"  
+            android:orientation="vertical"
+            android:clickable="true"
+            tools:context="com.zf.hit_news.MainActivity" >
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="@drawable/v5_0_1_flipper_head_blue_background"
+                android:clickable="false" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="导航"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/HometoNews"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#FFFFFF"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		News"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+  <!--          <RelativeLayout
+                android:id="@+id/HometoSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#AAAAAA"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		搜索"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            -->
+            <RelativeLayout
+                android:id="@+id/HometosetKeyWord"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#AAAAAA"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		关键字设置"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/HometosetTime"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#FFFFFF"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		推送开关"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/Hometosetweb"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#AAAAAA"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		网站设置"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/Hometofeedback"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#FFFFFF"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		反馈"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+             </RelativeLayout>
+ <!--                        <RelativeLayout
+                android:id="@+id/HometoGuide"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="#AAAAAA"
+                android:clickable="true" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="		使用指南"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            -->
+</LinearLayout>

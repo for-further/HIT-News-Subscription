@@ -1,0 +1,168 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.zf.hit_news.MainActivity" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+	        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:background="@drawable/v5_0_1_flipper_head_blue_background"
+            android:orientation="horizontal"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/webtoHome"
+                android:layout_width="54dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/v5_0_1_flipper_head_title_wrapper_background"
+                android:clickable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/v5_0_1_flipper_head_flip" />
+
+            <ImageView
+                android:layout_width="2px"
+                android:layout_height="24dip"
+                android:layout_gravity="center"
+                android:src="@drawable/v5_0_1_flipper_head_separator" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dip"
+                android:text="网站设置"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="2px"
+                android:layout_height="24dip"
+                android:layout_gravity="center"
+                android:src="@drawable/v5_0_1_flipper_head_separator" />
+            <Button
+                android:id="@+id/websub"
+                android:layout_width="60dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_margin="0dip"
+                android:background="@drawable/v5_0_1_flipper_head_blue_background"
+                android:text="完成"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+       </LinearLayout>
+       <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+                    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+       <CheckBox 
+        android:id="@+id/all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全选"
+        android:textSize="20sp"
+        />
+        <CheckBox 
+        android:id="@+id/allnot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全不选"
+        android:textSize="20sp"
+        />
+       </LinearLayout>
+	    <CheckBox 
+        android:id="@+id/web1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今日哈工大  \nhttp://today.hit.edu.cn"
+        android:textSize="16sp"      
+        />
+	    <CheckBox 
+        android:id="@+id/web2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哈工大新闻网\nhttp://news.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HIT ACM\nhttp://acm.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="后勤集团\nhttp://hqjt.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="本科生院\nhttp://hituc.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="教务处\nhttp://jwc.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="留学生中心\nhttp://studyathit.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="研究生招生网\nhttp://yzb.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="研究生工作部\nhttp://ygb.hit.edu.cn"
+        android:textSize="16sp"
+        />
+	    <CheckBox 
+        android:id="@+id/web10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哈工大国家大学科技园\nhttp://www.usp.com.cn"
+        android:textSize="16sp"
+        />	
+        <CheckBox 
+        android:id="@+id/web11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哈工大招生办\nhttp://zsb.hit.edu.cn"
+        android:textSize="16sp"
+        />
+        </LinearLayout> 
+        </ScrollView>
+    
+	</LinearLayout>
+</LinearLayout>
