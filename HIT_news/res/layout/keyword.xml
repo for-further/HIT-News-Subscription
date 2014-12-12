@@ -60,7 +60,7 @@
                     android:background="@drawable/v5_0_1_friend_search_bg"
                     android:orientation="vertical" >
 
-                    <LinearLayout
+                   <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
@@ -73,7 +73,7 @@
                             android:layout_weight="1" >
 
                             <EditText
-                                android:id="@+id/search_search"
+                                android:id="@+id/keywordtext"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_margin="8dip"
@@ -95,9 +95,17 @@
                                 android:src="@drawable/v5_0_1_search_clear_icon_bg"
                                 android:visibility="invisible" />
                         </RelativeLayout>
+                  </LinearLayout>
 
-                        <Button
-                            android:id="@+id/search_search_result"
+                  <LinearLayout
+                      android:layout_width="fill_parent"
+                      android:layout_height="48dip"
+                      android:focusable="true"
+                      android:focusableInTouchMode="true"
+                      android:orientation="horizontal">
+
+                      <Button
+                            android:id="@+id/keywordsub"
                             android:layout_width="60dip"
                             android:layout_height="fill_parent"
                             android:layout_alignParentRight="true"
@@ -106,8 +114,29 @@
                             android:text="添加"
                             android:textColor="#ff005092"
                             android:textSize="14sp" />
-                    </LinearLayout>
-
+                        <Button
+                            android:id="@+id/keyworddel"
+                            android:layout_width="60dip"
+                            android:layout_height="fill_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="8dip"
+                            android:background="@drawable/v5_0_1_guide_button_black_background"
+                            android:text="删除"
+                            android:textColor="#ff005092"
+                            android:textSize="14sp" />
+                        <Button
+                            android:id="@+id/keywordclean"
+                            android:layout_width="60dip"
+                            android:layout_height="fill_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="8dip"
+                            android:background="@drawable/v5_0_1_guide_button_black_background"
+                            android:text="清空"
+                            android:textColor="#ff005092"
+                            android:textSize="14sp" />
+                      </LinearLayout>
+                       
+<!--                          
                     <TextView
                         android:id="@+id/search_id"
                         android:layout_width="fill_parent"
@@ -115,6 +144,7 @@
                         android:padding="8dip"
                         android:textColor="#80333333"
                         android:textSize="12sp" />
+                       -->
                 </LinearLayout>
 
                 <TextView
@@ -158,6 +188,15 @@
                     android:layout_marginLeft="8dip"
                     android:layout_marginRight="8dip"
                     android:background="#20333333" />
+               <TextView
+				    android:id="@+id/add"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:layout_centerHorizontal="true"
+                    android:text="暂时没有内容"
+                    android:textSize="14sp"
+                     />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -177,15 +216,12 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF" >
-
-                   
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/search_collection_img"
-                        android:layout_centerHorizontal="true"
                         android:text="暂时没有内容"
+                        android:layout_centerHorizontal="true"
                         android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>

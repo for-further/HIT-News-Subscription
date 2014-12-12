@@ -38,9 +38,26 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+
+			<ImageView
+                android:layout_width="2px"
+                android:layout_height="24dip"
+                android:layout_gravity="center"
+                android:src="@drawable/v5_0_1_flipper_head_separator" />
+		   <ImageView
+                android:id="@+id/refresh"
+                android:layout_width="54dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/v5_0_1_flipper_head_title_wrapper_background"
+                android:clickable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/v5_0_1_webview_refresh_button" />
+
         </LinearLayout>
         <ListView
-            android:id="@+id/newsfeed_display"
+            android:id="@+id/mList"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,7 +66,9 @@
             android:listSelector="#00000000" >
         </ListView>
 
-        <RelativeLayout
+
+
+ <!--         <RelativeLayout
             android:id="@+id/newsfeed_nodisplay"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -78,5 +97,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dip"
             android:visibility="gone" />
+            -->
     </LinearLayout>
 </LinearLayout>

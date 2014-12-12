@@ -46,7 +46,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <ScrollView
+      <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
 
@@ -74,14 +74,14 @@
                             android:layout_weight="1" >
 
                             <EditText
-                                android:id="@+id/search_search"
+                                android:id="@+id/searchtext"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_margin="8dip"
                                 android:background="@drawable/edittext_bg"
                                 android:drawableLeft="@drawable/v5_0_1_friend_search_icon"
                                 android:drawablePadding="8dip"
-                                android:hint="关键字 "
+                                android:hint="搜索内容 "
                                 android:paddingRight="30dip"
                                 android:textSize="12sp" />
 
@@ -98,7 +98,7 @@
                         </RelativeLayout>
 
                         <Button
-                            android:id="@+id/search_search_result"
+                            android:id="@+id/searchsub"
                             android:layout_width="60dip"
                             android:layout_height="fill_parent"
                             android:layout_alignParentRight="true"
@@ -118,7 +118,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <TextView
+     <!--             <TextView
                     android:id="@+id/search_search_contacts"
                     android:layout_width="fill_parent"
                     android:layout_height="48dip"
@@ -138,7 +138,7 @@
                     android:layout_marginLeft="8dip"
                     android:layout_marginRight="8dip"
                     android:background="#20333333" />
-
+-->
  <!--             <TextView
                     android:id="@+id/search_search_classmate"
                     android:layout_width="fill_parent"
@@ -153,6 +153,7 @@
                     android:textColor="#ff005092"
                     android:textSize="16sp" />
 -->
+<!-- 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dip"
@@ -173,7 +174,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="2dip"
                     android:background="@drawable/v5_0_1_profile_header_divider" />
-
+-->
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

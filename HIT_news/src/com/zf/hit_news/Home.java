@@ -1,6 +1,7 @@
 package com.zf.hit_news;
 
 import android.support.v7.app.ActionBarActivity;
+//import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,9 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
-
+//public class Home extends Activity {
 public class Home extends ActionBarActivity {
-	private RelativeLayout HometoNews,HometoSearch,HometosetKeyword,HometosetTime;
+	private RelativeLayout HometoNews,HometoSearch,HometosetKeyword,HometosetTime,Hometosetweb;
+	private RelativeLayout Hometofeedback,HometoGuide;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,11 +21,18 @@ public class Home extends ActionBarActivity {
 		HometoSearch=(RelativeLayout)findViewById(R.id.HometoSearch);
 		HometosetKeyword=(RelativeLayout)findViewById(R.id.HometosetKeyWord);
 		HometosetTime=(RelativeLayout)findViewById(R.id.HometosetTime);
+		Hometosetweb=(RelativeLayout)findViewById(R.id.Hometosetweb);
+		Hometofeedback=(RelativeLayout)findViewById(R.id.Hometofeedback);
+		HometoGuide=(RelativeLayout)findViewById(R.id.HometoGuide);
 		HomeClicklistener Hlistener=new HomeClicklistener();
 		HometoNews.setOnClickListener(Hlistener);
 		HometoSearch.setOnClickListener(Hlistener);
 		HometosetKeyword.setOnClickListener(Hlistener);
 		HometosetTime.setOnClickListener(Hlistener);
+		Hometosetweb.setOnClickListener(Hlistener);
+		Hometofeedback.setOnClickListener(Hlistener);
+		HometoGuide.setOnClickListener(Hlistener);
+		
 	}
 
 	@Override
@@ -52,9 +61,25 @@ public class Home extends ActionBarActivity {
 				System.out.println("关键字");
 			}
 			else if(v.getId()==R.id.HometosetTime) {
+				System.out.println("Time");
 				Intent intent = new Intent(Home.this,Time.class);
 				startActivity(intent);
-				System.out.println("Time");
+				
+			}
+			else if(v.getId()==R.id.Hometofeedback) {
+				System.out.println("反馈");
+				Intent intent = new Intent(Home.this,feedback.class);
+				startActivity(intent);
+			}
+			else if(v.getId()==R.id.HometoGuide) {
+				Intent intent = new Intent(Home.this,Guide.class);
+				startActivity(intent);
+				System.out.println("指南");
+			}
+			else if(v.getId()==R.id.Hometosetweb) {
+				Intent intent = new Intent(Home.this,web.class);
+				startActivity(intent);
+				System.out.println("网站");
 			}
 		}
 		
@@ -70,4 +95,14 @@ public class Home extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
+		   case RESULT_OK:
+		    Bundle b=data.getExtras(); //data为B中回传的Intent
+		    String str=b.getString("str1");//str即为回传的值
+		    break;
+		default:
+		    break;
+		    }
+		}
 }

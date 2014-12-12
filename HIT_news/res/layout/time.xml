@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context="com.zf.hit_news.MainActivity" >
-    <LinearLayout
+   <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#FFFFFF"
@@ -43,21 +43,46 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+            <ImageView
+                android:layout_width="2px"
+                android:layout_height="24dip"
+                android:layout_gravity="center"
+                android:src="@drawable/v5_0_1_flipper_head_separator" />
+            <Button
+                android:id="@+id/Timesub"
+                android:layout_width="60dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_margin="0dip"
+                android:background="@drawable/v5_0_1_flipper_head_blue_background"
+                android:text="完成"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
        </LinearLayout>
+<!--  <Switch 
+	    android:layout_below="@id/head"
+        android:id="@+id/timeswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="定时推送开"
+        android:textOff="定时推送关"
+        android:layout_marginLeft="100dip"
+        /> 
+        -->
+     <Button 
+	    android:id="@+id/Timeswitch"
+	    android:text="定时推送          开"
+	    android:layout_margin="10dp"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"  
+	    />
     <TimePicker
-        android:layout_below="@id/head"
+        android:layout_below="@id/Timeswitch"
         android:id="@+id/Timepicker"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
          />
-	<Button 
-	    android:id="@+id/Timesub"
-	    android:text="ok"
-	    android:layout_margin="10dp"
-	    android:layout_width="match_parent"
-        android:layout_height="wrap_content"  
-	    />
 	</LinearLayout>
 </LinearLayout>
