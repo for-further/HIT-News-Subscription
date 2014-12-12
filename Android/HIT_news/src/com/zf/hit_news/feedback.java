@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class feedback extends ActionBarActivity {
 	private ImageView feedbacktoHome;
@@ -29,6 +30,7 @@ public class feedback extends ActionBarActivity {
 		feedbacktoHome.setOnClickListener(listener);
 		feedbacksub.setOnClickListener(listener);
 	}
+	String TEXT, ID; int OK, END;
 	class Listener implements OnClickListener{
 
 		@Override
@@ -41,7 +43,19 @@ public class feedback extends ActionBarActivity {
 			}
 			else if(v.getId()==R.id.feedbacksub){
 				String text=et.getText().toString().trim();
-				System.out.println(text);
+				String id = MainActivity.getRId();
+				TEXT = text; ID = id; OK = 0; END = 0;
+				new Thread(){
+					public void run(){
+						OK = httpRequest.sendFeedback(TEXT, ID);
+						END = 1;
+					}
+				}.start();
+				while (END == 0);
+				if (OK == 1)
+					Toast.makeText(getApplicationContext(), "提交成功，感谢您的支持！", Toast.LENGTH_SHORT).show();
+				else 
+					Toast.makeText(getApplicationContext(), "提交失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
 			}
 		}
 		

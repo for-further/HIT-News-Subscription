@@ -119,8 +119,24 @@ public class httpRequest{
 		if (ret == null) return 0;
 		return 1;
 	}
+    public static int sendFeedback(String word, String id){
+		word = toUtf8(word);
+		id = toUtf8(id);
+		String ret = sendPost("http://hitnewsapp.sinaapp.com/test", "op=5&word=" + word + "&id=" + id);
+		System.out.println(ret);
+		if (ret == null) return 0;
+		return 1;
+	}
+    public static int sendClearRequest(String id){
+    	id = toUtf8(id);
+    	String ret = sendPost("http://hitnewsapp.sinaapp.com/test", "op=6&word=123&id=" + id);
+		System.out.println(ret);
+		if (ret == null) return 0;
+		return 1;
+    }
+    
     public static void main(String[] args) {
-    	System.out.println(addKeyword("2014", "070dec8af07"));
+    	System.out.println(sendClearRequest("090bf22b3f5"));
 //    	System.out.println(123);
     	
     	//(delKeyword("123", "456"));

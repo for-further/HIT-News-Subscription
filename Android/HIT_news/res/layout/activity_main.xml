@@ -1,10 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"  
-            android:orientation="vertical"
-            android:clickable="true"
-            tools:context="com.zf.hit_news.MainActivity" >
+            android:orientation="vertical" >
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
@@ -16,24 +13,37 @@
                     android:layout_centerInParent="true"
                     android:text="导航"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="20dip"
                     android:textStyle="bold" />
             </RelativeLayout>
-            <RelativeLayout
+
+            <LinearLayout
                 android:id="@+id/HometoNews"
                 android:layout_width="fill_parent"
-                android:layout_height="48dip"
-                android:background="#FFFFFF"
-                android:clickable="true" >
+                android:layout_height="65dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="30dip"
+                android:background="@drawable/home_selector_top"
+                android:clickable="true"
+                android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="		News"
+                    android:layout_height="30dip"
+                    android:layout_weight="10"
+                    android:text="		新闻 "
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                    android:textSize="20dip" />
+                <ImageView 
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/v5_0_1_arrow"
+                    />
+            </LinearLayout>
+           
   <!--          <RelativeLayout
                 android:id="@+id/HometoSearch"
                 android:layout_width="fill_parent"
@@ -50,66 +60,98 @@
                     android:textStyle="bold" />
             </RelativeLayout>
             -->
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/HometosetKeyWord"
                 android:layout_width="fill_parent"
-                android:layout_height="48dip"
-                android:background="#AAAAAA"
+                android:layout_height="65dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/home_selector"
                 android:clickable="true" >
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_height="30dip"
+                    android:layout_weight="10"
                     android:text="		关键字设置"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-            <RelativeLayout
+                    android:textSize="20dip"/>
+                <ImageView 
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/v5_0_1_arrow"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/HometosetTime"
                 android:layout_width="fill_parent"
-                android:layout_height="48dip"
-                android:background="#FFFFFF"
+                android:layout_height="65dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/home_selector"
                 android:clickable="true" >
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_height="30dip"
+                    android:layout_weight="10"
                     android:text="		推送开关"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-            <RelativeLayout
+                    android:textSize="20dip"/>
+                <ImageView 
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/v5_0_1_arrow"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/Hometosetweb"
                 android:layout_width="fill_parent"
-                android:layout_height="48dip"
-                android:background="#AAAAAA"
+                android:layout_height="65dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/home_selector"
                 android:clickable="true" >
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_height="30dip"
+                    android:layout_weight="10"
                     android:text="		网站设置"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-            <RelativeLayout
+                    android:textSize="20dip"/>
+                <ImageView 
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/v5_0_1_arrow"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/Hometofeedback"
                 android:layout_width="fill_parent"
-                android:layout_height="48dip"
-                android:background="#FFFFFF"
+                android:layout_height="65dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/home_selector_bottom"
                 android:clickable="true" >
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_height="30dip"
+                    android:layout_weight="10"
                     android:text="		反馈"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-             </RelativeLayout>
+                    android:textSize="20dip" />
+                <ImageView 
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/v5_0_1_arrow"
+                    />
+             </LinearLayout>
  <!--                        <RelativeLayout
                 android:id="@+id/HometoGuide"
                 android:layout_width="fill_parent"

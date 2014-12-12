@@ -1,28 +1,30 @@
 package com.zf.hit_news;
 
-import android.support.v7.app.ActionBarActivity;
-//import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+//import android.app.Activity;
 //public class Home extends Activity {
 public class Home extends ActionBarActivity {
-	private RelativeLayout HometoNews,HometoSearch,HometosetKeyword,HometosetTime,Hometosetweb;
-	private RelativeLayout Hometofeedback,HometoGuide;
+	private LinearLayout HometoNews, HometoSearch,HometosetKeyword,HometosetTime,Hometosetweb;
+	private LinearLayout Hometofeedback,HometoGuide;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 	 	setContentView(R.layout.activity_main);
-		HometoNews=(RelativeLayout)findViewById(R.id.HometoNews);
+		HometoNews=(LinearLayout)findViewById(R.id.HometoNews);
 //		HometoSearch=(RelativeLayout)findViewById(R.id.HometoSearch);
-		HometosetKeyword=(RelativeLayout)findViewById(R.id.HometosetKeyWord);
-		HometosetTime=(RelativeLayout)findViewById(R.id.HometosetTime);
-		Hometosetweb=(RelativeLayout)findViewById(R.id.Hometosetweb);
-		Hometofeedback=(RelativeLayout)findViewById(R.id.Hometofeedback);
+		HometosetKeyword=(LinearLayout)findViewById(R.id.HometosetKeyWord);
+		HometosetTime=(LinearLayout)findViewById(R.id.HometosetTime);
+		Hometosetweb=(LinearLayout)findViewById(R.id.Hometosetweb);
+		Hometofeedback=(LinearLayout)findViewById(R.id.Hometofeedback);
 //		HometoGuide=(RelativeLayout)findViewById(R.id.HometoGuide);
 		HomeClicklistener Hlistener=new HomeClicklistener();
 		HometoNews.setOnClickListener(Hlistener);

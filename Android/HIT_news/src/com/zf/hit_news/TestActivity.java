@@ -11,10 +11,9 @@ public class TestActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent();
+        Intent intent = new Intent(TestActivity.this, Browser.class);
         Bundle bundle = getIntent().getExtras();
         String content = bundle.getString(JPushInterface.EXTRA_ALERT);
-        intent.setAction("android.intent.action.VIEW");
         
         String URL = "";
         Boolean flag = false;
@@ -25,8 +24,7 @@ public class TestActivity extends Activity {
         		if(content.charAt(i) == '$') flag = true;
         	}
         }
-        Uri content_url = Uri.parse(URL);
-        intent.setData(content_url);
+        intent.putExtra("url", URL);
         startActivity(intent);
     }
 }

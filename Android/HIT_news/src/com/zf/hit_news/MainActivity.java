@@ -1,10 +1,11 @@
 package com.zf.hit_news;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +45,10 @@ public class MainActivity extends Activity {
 		welcome.setOnClickListener(listener);
 		id=JPushInterface.getRegistrationID(MainActivity.this);
 		
+		System.out.println("id   " + id);
+		
 	}
+	
 	
 	
 	public static String getRId(){
@@ -131,6 +135,13 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {  
+		if(keyCode == KeyEvent.KEYCODE_BACK){                             
+			finish();
+            System.exit(0); 
+	    }  
+	    return false;  
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

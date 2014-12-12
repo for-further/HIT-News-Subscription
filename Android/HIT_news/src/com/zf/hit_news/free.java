@@ -72,7 +72,6 @@ public class free extends ActionBarActivity {
 		mView = LayoutInflater.from(this).inflate(R.layout.list_item, null); 
 		mListView = (ListView) findViewById(R.id.mList);  
 		newstoHome=(ImageView)findViewById(R.id.newstoHome);
-		refresh = (ImageView) findViewById(R.id.refresh);
 		
 		mShared = getSharedPreferences(SHARED_keyword, Context.MODE_PRIVATE);
 		lastUrl = mShared.getString(KEY_last,"new");
@@ -162,24 +161,7 @@ public class free extends ActionBarActivity {
 //				startActivity(intent);
 				finish();
 			}
-			else if(v.getId()==R.id.refresh){
-					new Thread(){
-			        	public void run() {
-			        		String id = MainActivity.getRId();
-			        			URL = httpRequest.getNewsNewer(firstUrl, id);
-			        			URLO=URL+URLO;
-			        			if(URL == null)
-			        				handler.sendEmptyMessage(0x9528);
-			        			else if(URL == "")
-			        				handler.sendEmptyMessage(0x9529);
-			        			else{
-			        				mList = getListData();
-			        				handler.sendEmptyMessage(0x9527);		
-			        			}
-			        	}
-			        }.start();
-			        Toast.makeText(getApplicationContext(), "Wait\n。。。。", Toast.LENGTH_SHORT).show();
-				}
+			
 		}
 			
 		
@@ -199,7 +181,7 @@ public class free extends ActionBarActivity {
 		}
 		mListData = mList;
 		SimpleAdapter adapter = new SimpleAdapter(this, mListData, R.layout.list_item,  
-                new String[]{"image", "text", "url"}, new int[]{R.id.image, R.id.text, R.id.url});
+                new String[]{"image", "text"}, new int[]{R.id.image, R.id.text});
         
         adapter.setViewBinder(new ViewBinder() {  
             

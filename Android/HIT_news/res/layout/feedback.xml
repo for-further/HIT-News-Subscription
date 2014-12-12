@@ -48,14 +48,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="180dip"
                 android:layout_margin="8dip"
+                android:gravity="top"
                 android:background="@drawable/edittext_bg"
-                android:drawablePadding="8dip"
                 android:hint="我们还有那些要改进呢？ "
                 android:paddingRight="30dip"
-                android:textSize="12sp" />
+                android:textSize="18sp" />
 	<Button 
 	    android:id="@+id/feedbacksub"
-	    android:text="ok"
+	    android:text="提交"
 	    android:layout_margin="10dp"
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content"  

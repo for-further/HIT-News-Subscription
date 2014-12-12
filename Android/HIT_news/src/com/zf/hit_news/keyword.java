@@ -154,17 +154,29 @@ public class keyword extends ActionBarActivity {
 				String text = mShared.getString(KEY_keyword, "暂时没有内容");
 				System.out.println(text);
 				if(text!="暂时没有内容"){
-                Editor editor = mShared.edit();
-                editor.remove(KEY_keyword);
-                //editor.clear();
-                editor.commit();
-//                ShowDialog("清除SharedPreferences数据成功");
+					String id = MainActivity.getRId();
+					ID = id; OK = 0; END = 0;
+					new Thread(){
+						public void run(){
+							OK = httpRequest.sendClearRequest(ID);
+							END = 1;
+						}
+					}.start();
+					while (END == 0);
+					Editor editor = mShared.edit();
+					editor.remove(KEY_keyword);
+					//editor.clear();
+					editor.commit();
+					if (OK == 1)
+						Toast.makeText(getApplicationContext(), "清空成功", Toast.LENGTH_SHORT).show();
+					else Toast.makeText(getApplicationContext(), "清空失败", Toast.LENGTH_SHORT).show();
+//                	ShowDialog("清除SharedPreferences数据成功");
+				}else{
+					System.out.println(text);
+					Toast.makeText(getApplicationContext(), "已清空", Toast.LENGTH_SHORT).show();
 				}
-                System.out.println(text);
-                Toast.makeText(getApplicationContext(), "已清空", Toast.LENGTH_SHORT).show();
-                text = mShared.getString(KEY_keyword, "暂时没有内容");
-                add.setText(text);
-				
+				text = mShared.getString(KEY_keyword, "暂时没有内容");
+				add.setText(text);
 			}
 		}
 	}
