@@ -33,10 +33,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:paddingLeft="8dip"
-                android:text="新闻             "
+                android:layout_marginRight="54dip"
+                android:text="新闻"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textSize="20dip"
                 android:textStyle="bold" />
 
 

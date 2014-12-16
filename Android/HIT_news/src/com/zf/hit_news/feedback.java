@@ -5,6 +5,9 @@ import com.zf.hit_news.Search.Listener;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +22,23 @@ public class feedback extends ActionBarActivity {
 	private Button feedbacksub;
 	public EditText et;
 //	private Boolean isEmpty = true;
+
+	Handler handler=new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+        	if (msg.what == 0x1000){
+        		Toast.makeText(getApplicationContext(), "提交成功，感谢您的支持！", Toast.LENGTH_SHORT).show();
+				finish();
+			}else if (msg.what == 0x1001){
+				Toast.makeText(getApplicationContext(), "提交失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
+			}
+        }
+    };
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ExitApplication.getInstance().addActivity(this);
+		
 		setContentView(R.layout.feedback);
 		feedbacktoHome=(ImageView)findViewById(R.id.feedbacktoHome);
 		feedbacksub=(Button)findViewById(R.id.feedbacksub);
@@ -42,23 +59,26 @@ public class feedback extends ActionBarActivity {
 				startActivity(intent);
 			}
 			else if(v.getId()==R.id.feedbacksub){
-				String text=et.getText().toString().trim();
-				String id = MainActivity.getRId();
-				TEXT = text; ID = id; OK = 0; END = 0;
 				new Thread(){
 					public void run(){
-						OK = httpRequest.sendFeedback(TEXT, ID);
-						END = 1;
+						String text=et.getText().toString().trim();
+						String id = MainActivity.getRId();
+						if (httpRequest.sendFeedback(text, id) == 1){
+							handler.sendEmptyMessage(0x1000);
+						}else 
+							handler.sendEmptyMessage(0x1001);
 					}
 				}.start();
-				while (END == 0);
-				if (OK == 1)
-					Toast.makeText(getApplicationContext(), "提交成功，感谢您的支持！", Toast.LENGTH_SHORT).show();
-				else 
-					Toast.makeText(getApplicationContext(), "提交失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {  
+		if(keyCode == KeyEvent.KEYCODE_BACK){                             
+			finish();
+	    }  
+	    return false;  
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

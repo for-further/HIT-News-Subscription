@@ -17,8 +17,6 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -64,25 +62,39 @@ public class News  extends Activity implements OnRefreshListener, OnLoadListener
 	 Handler handler=new Handler() {
 	        @Override
 	        public void handleMessage(Message msg) {
-	            if (msg.what==0x9527) {
+	        	if (msg.what == 0x9524){
+	        		Do(2);
+//	        		Toast.makeText(getApplicationContext(), "没有更新", Toast.LENGTH_SHORT).show();
+	        	}
+	        	else if (msg.what == 0x9525){
+	        		Do(2);
+//	        		Toast.makeText(getApplicationContext(), "恢复成功", Toast.LENGTH_SHORT).show();
+	        	}else if (msg.what==0x9527) {
 	                //显示从网上下载的图片
 	            	System.out.println("mess");
 	            	Do(0);
-//	            	Toast.makeText(getApplicationContext(), "刷新成功", Toast.LENGTH_SHORT).show();
+	            	mSwipeLayout.setRefreshing(false);
+	            	Toast.makeText(getApplicationContext(), "刷新成功", Toast.LENGTH_SHORT).show();
 	            }else if(msg.what==0x9526){
 	            	System.out.println("mess");
 	            	Do(1);
+	            	mSwipeLayout.setLoading(false);
+	            	Toast.makeText(getApplicationContext(), "刷新成功", Toast.LENGTH_SHORT).show();
 	            }else if(msg.what==0x9528){
 	            	Toast.makeText(getApplicationContext(), "刷新失败\n请检查网络", Toast.LENGTH_SHORT).show();
 	            }
-	            else if(msg.what==0x9529)
+	            else if(msg.what==0x9529){
+	            	Do(0);
+	            	mSwipeLayout.setRefreshing(false);
 	            	Toast.makeText(getApplicationContext(), "没有更新", Toast.LENGTH_SHORT).show();
-	        }          
+	        }   }
 	    };
 	    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ExitApplication.getInstance().addActivity(this);
+		
 		//初始化控件
 		setContentView(R.layout.news);
 		mView = LayoutInflater.from(this).inflate(R.layout.list_item, null); 
@@ -111,14 +123,14 @@ public class News  extends Activity implements OnRefreshListener, OnLoadListener
     			if(URLO == null)
         			handler.sendEmptyMessage(0x9528);
         		else if(URLO.equals(""))
-        			handler.sendEmptyMessage(0x9529);
+        			handler.sendEmptyMessage(0x9524);
         		else{
         			mList = getListData();
-        			handler.sendEmptyMessage(0x9527);		
+        			handler.sendEmptyMessage(0x9525);		
         		}
         	}
         }.start();
-        Toast.makeText(getApplicationContext(), "正在刷新", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "正在恢复上次的新闻\n下拉刷新可获取最新新闻\n上拉可获得历史新闻", Toast.LENGTH_SHORT).show();
 		
         //设置监听
 		Newslistener listener=new Newslistener();	
@@ -133,6 +145,7 @@ public class News  extends Activity implements OnRefreshListener, OnLoadListener
 				String url = (String) map.get("url");
 				Intent intent = new Intent(News.this, Browser.class);
 				intent.putExtra("url", url);
+				intent.putExtra("source", "news");
 		        startActivity(intent);
 			}
 		});
@@ -143,21 +156,24 @@ public class News  extends Activity implements OnRefreshListener, OnLoadListener
 		new Thread(){
         	public void run() {
         		String id = MainActivity.getRId();
-        			URL = httpRequest.getNewsNewer("new", id);
-        			URLO = URL;
-        			System.out.println(URL);
-        			if(URL == null)
-        				handler.sendEmptyMessage(0x9528);
-        			else if(URL == "")
-        				handler.sendEmptyMessage(0x9529);
-        			else{
-        				mList = getListData();
-        				handler.sendEmptyMessage(0x9527);		
-        			}
+        		URL = httpRequest.getNewsNewer("new", id);
+        		URLO = URL;
+        		System.out.println(URL);
+        		if(URL == null){
+        			mSwipeLayout.setRefreshing(false);
+       				handler.sendEmptyMessage(0x9528);
+        		}else if(URL.equals("")){
+       				mList = getListData();
+//       			mSwipeLayout.setRefreshing(false);
+        			handler.sendEmptyMessage(0x9529);
+        		}else{
+        			mList = getListData();
+       				handler.sendEmptyMessage(0x9527);		
+       			}
         	}
         }.start();
-        mSwipeLayout.setRefreshing(false);
         Toast.makeText(getApplicationContext(), "正在刷新", Toast.LENGTH_SHORT).show();
+//        mSwipeLayout.setRefreshing(false);
 	}
 	
 	//上拉刷新，显示lasturl之前的10条新闻
@@ -166,102 +182,115 @@ public class News  extends Activity implements OnRefreshListener, OnLoadListener
 		new Thread(){
         	public void run() {
         		String id = MainActivity.getRId();
-        			URL = httpRequest.getNewsOlder(lastUrl, id);
-        			System.out.println("Older       \n" + URL);
-        			URLO=URLO+URL;
-        			if(URL == null)
-        				handler.sendEmptyMessage(0x9528);
-        			else if(URL == "")
-        				handler.sendEmptyMessage(0x9529);
-        			else{
-        				mList = getListData();
-        				handler.sendEmptyMessage(0x9526);		
-        			}
+        		URL = httpRequest.getNewsOlder(lastUrl, id);
+        		System.out.println("Older       \n" + URL);
+        		URLO=URLO+URL;
+        		if(URL == null){
+       				mSwipeLayout.setLoading(false);
+       				handler.sendEmptyMessage(0x9528);
+       			}else if(URL.equals("")){
+       				mSwipeLayout.setLoading(false);
+       				handler.sendEmptyMessage(0x9529);
+       			}else{
+       				mList = getListData();
+       				handler.sendEmptyMessage(0x9526);		
+        		}
         	}
         }.start();
-        mSwipeLayout.setLoading(false);
+//        mSwipeLayout.setLoading(false);
         Toast.makeText(getApplicationContext(), "正在刷新", Toast.LENGTH_SHORT).show();
 	}
 	
 	//button监听
-	class Newslistener implements OnClickListener{
-		@Override
-		public void onClick(View v) {
-			if(v.getId()==R.id.newstoHome){
-				Save();
-			}
-		}
-	}
-	public boolean onKeyDown(int keyCode, KeyEvent event) {  
-		if(keyCode == KeyEvent.KEYCODE_BACK){                             
-			Save();
-	    }  
-	    return false;  
-	}
-	
-	//返回时保存新闻
-	public void Save(){
-		int cnt = 0, flag = 1;
-		URL = firstUrl = lastUrl = "";
-		for(int i=0; i<URLO.length(); i++){
-			char ch = URLO.charAt(i);
-			URL += ch;
-			if(ch == '$'){
-				if(++cnt == 30) break;
-				continue;
-			}
-			if(cnt == 0) firstUrl += ch;
-			if(cnt % 3 == 0) {
-				if(flag == 0) lastUrl += ch;
-				else{
-					flag = 0;
-					lastUrl = "" + ch;
+		class Newslistener implements OnClickListener{
+			@Override
+			public void onClick(View v) {
+				if(v.getId()==R.id.newstoHome){
+					Save();
 				}
-			}else if(cnt % 3 == 1) flag = 1;
+			}
 		}
-		mShared = getSharedPreferences(SHARED_keyword, Context.MODE_PRIVATE);
-		Editor editor = mShared.edit();
-		editor.putString(KEY_news, URL);
-		/**put完毕必需要commit()否则无法保存**/
-		editor.commit();
-		System.out.println("*****保存URL成功********"+URL);
+		public boolean onKeyDown(int keyCode, KeyEvent event) {  
+			if(keyCode == KeyEvent.KEYCODE_BACK){                             
+				Save();
+		    }  
+		    return false;  
+		}
 		
-		editor.putString(KEY_last, lastUrl);
-		editor.commit();
-		/**put完毕必需要commit()否则无法保存**/
-		System.out.println("保存last------"+lastUrl);
-		
-		editor.putString(KEY_first, firstUrl);
-		/**put完毕必需要commit()否则无法保存**/
-		editor.commit();
-		System.out.println("保存first------"+firstUrl); 
-		finish();
-	}
+		//返回时保存新闻
+		public void Save(){
+			int cnt = 0, flag = 1;
+			URL = firstUrl = lastUrl = "";
+			for(int i=0; i<URLO.length(); i++){
+				char ch = URLO.charAt(i);
+				URL += ch;
+				if(ch == '$'){
+					if(++cnt == 30) break;
+					continue;
+				}
+				if(cnt == 0) firstUrl += ch;
+				if(cnt % 3 == 0) {
+					if(flag == 0) lastUrl += ch;
+					else{
+						flag = 0;
+						lastUrl = "" + ch;
+					}
+				}else if(cnt % 3 == 1) flag = 1;
+			}
+			mShared = getSharedPreferences(SHARED_keyword, Context.MODE_PRIVATE);
+			Editor editor = mShared.edit();
+			editor.putString(KEY_news, URL);
+			/**put完毕必需要commit()否则无法保存**/
+			editor.commit();
+			System.out.println("*****保存URL成功********"+URL);
+			
+			editor.putString(KEY_last, lastUrl);
+			editor.commit();
+			/**put完毕必需要commit()否则无法保存**/
+			System.out.println("保存last------"+lastUrl);
+			
+			editor.putString(KEY_first, firstUrl);
+			/**put完毕必需要commit()否则无法保存**/
+			editor.commit();
+			System.out.println("保存first------"+firstUrl); 
+			finish();
+		}
 	
 	//显示到listview
 	public void Do(int sta){
 //		System.out.println("DO");
-		if(sta != 0)
-		for(HashMap<String,Object> mp: mList){
-			mListData.add(mp);
-		}else mListData = mList;
+		if(sta == 1){
+			for(HashMap<String,Object> mp: mList){
+				mListData.add(mp);
+			}
+		}else{
+			mListData.clear();
+			for(HashMap<String,Object> mp: mList){
+				mListData.add(mp);
+			}
+		}
 		
-		adapter = new SimpleAdapter(this, mListData, R.layout.list_item,  
-                new String[]{"image", "text"}, new int[]{R.id.image, R.id.text});
-        
-        adapter.setViewBinder(new ViewBinder() {      
-            public boolean setViewValue(View view, Object data,  
-                    String textRepresentation) {  
-                //判断是否为我们要处理的对象  
-                if(view instanceof ImageView  && data instanceof Bitmap){  
-                    ImageView iv = (ImageView) view;  
-                    iv.setImageBitmap((Bitmap) data);  
-                    return true;  
-                }else return false;  
-            }  
-        });  
-        mListView.setAdapter(adapter);
-
+		if (sta == 2){
+		
+			adapter = new SimpleAdapter(this, mListData, R.layout.list_item,  
+	                new String[]{"image", "text"}, new int[]{R.id.image, R.id.text,});
+	        
+	        adapter.setViewBinder(new ViewBinder() {      
+	            public boolean setViewValue(View view, Object data,  
+	                    String textRepresentation) {  
+	                //判断是否为我们要处理的对象  
+	                if(view instanceof ImageView  && data instanceof Bitmap){  
+	                    ImageView iv = (ImageView) view;  
+	                    iv.setImageBitmap((Bitmap) data);  
+	                    return true;  
+	                }else return false;  
+	            }  
+	        });  
+	        mListView.setAdapter(adapter);
+		}else{
+			adapter.notifyDataSetChanged();
+			System.out.println("changed");
+		}
 	} 
 	
 	//得到包含标题、url、图片的list
@@ -295,6 +324,7 @@ public class News  extends Activity implements OnRefreshListener, OnLoadListener
         			map.put("image", getBitmap(murl));
         			murl = "";
         			cnt = 0;
+//        			map.put("date", "2014-12-15");
         			list.add(map); 
         		}else{
         			murl += URL.charAt(i);

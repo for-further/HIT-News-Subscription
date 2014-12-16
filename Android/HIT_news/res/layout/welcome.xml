@@ -7,15 +7,6 @@
     android:clickable="true"
     android:orientation="vertical" >
     
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_marginRight="300dp"
-        android:text="工大\n新闻"
-        android:textColor="#FF0000"
-        android:textSize="50dp"
-        android:textStyle="bold"
-         />
+    
 
 </LinearLayout>

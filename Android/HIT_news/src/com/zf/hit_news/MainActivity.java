@@ -4,13 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.PowerManager;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,31 +25,39 @@ public class MainActivity extends Activity {
 	private LinearLayout welcome;
 	ListView mListView = null;
 	View mView = null;
-	private static String id = null;
+	private static String id = "";
 	
 	private EditText msgText;
 	public static boolean isForeground = false;
 	
+	Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Intent intent = new Intent(MainActivity.this, Home.class);
+            startActivity(intent);
+        }
+    };
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+		 ExitApplication.getInstance().addActivity(this);
+				
+//		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
 		setContentView(R.layout.welcome);
-		/*
-		 * 从list_item.xml调取布局
-		 * SimpleAdapter(this, container, .xml, from, to)
-		 */
-		mView = LayoutInflater.from(this).inflate(R.layout.list_item, null); 
-        mListView = (ListView) findViewById(R.id.mList);  
         welcome=(LinearLayout)findViewById(R.id.welcome);
-		Listener listener=new Listener();
-		welcome.setOnClickListener(listener);
+//		Listener listener=new Listener();
+//		welcome.setOnClickListener(listener);
 		id=JPushInterface.getRegistrationID(MainActivity.this);
 		
 		System.out.println("id   " + id);
 		
+		
+		
+		mHandler.sendEmptyMessageDelayed(0, 1500);
 	}
 	
 	
@@ -121,19 +132,19 @@ public class MainActivity extends Activity {
          }
 	}
 	
-	class Listener implements OnClickListener{
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			if(v.getId()==R.id.welcome)
-			{
-				Intent intent = new Intent(MainActivity.this,Home.class);
-				startActivity(intent);
-			}
-		}
-		
-	}
+//	class Listener implements OnClickListener{
+//
+//		@Override
+//		public void onClick(View v) {
+//			// TODO Auto-generated method stub
+//			if(v.getId()==R.id.welcome)
+//			{
+//				Intent intent = new Intent(MainActivity.this,Home.class);
+//				startActivity(intent);
+//			}
+//		}
+//		
+//	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {  
 		if(keyCode == KeyEvent.KEYCODE_BACK){                             

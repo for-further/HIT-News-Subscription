@@ -25,6 +25,7 @@ public class TestActivity extends Activity {
         	}
         }
         intent.putExtra("url", URL);
+        intent.putExtra("source", "push");
         startActivity(intent);
     }
 }

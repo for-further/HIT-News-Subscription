@@ -1,22 +1,38 @@
 package com.zf.hit_news;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 //import android.app.Activity;
 //public class Home extends Activity {
 public class Home extends ActionBarActivity {
 	private LinearLayout HometoNews, HometoSearch,HometosetKeyword,HometosetTime,Hometosetweb;
 	private LinearLayout Hometofeedback,HometoGuide;
+	Boolean isExit = false;
+	
+	SharedPreferences mShared = null;
+	public final static String SHARED_keyword = "reboot";
+	public final static String KEY_keyword = "reboot";
+	public final static String DATA_URL = "/data/datareboot/";
+	public final static String SHARED_keyword_XML = "reboot.xml";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ExitApplication.getInstance().addActivity(this);
 		
 	 	setContentView(R.layout.activity_main);
 		HometoNews=(LinearLayout)findViewById(R.id.HometoNews);
@@ -34,6 +50,17 @@ public class Home extends ActionBarActivity {
 		Hometosetweb.setOnClickListener(Hlistener);
 		Hometofeedback.setOnClickListener(Hlistener);
 //		HometoGuide.setOnClickListener(Hlistener);
+		
+		
+		mShared = getSharedPreferences(SHARED_keyword, Context.MODE_PRIVATE);
+		String text = mShared.getString(KEY_keyword,"");
+		if(text.equals("") && MainActivity.getRId().equals("")){
+			System.out.println("0000");
+			Editor editor = mShared.edit();
+			editor.putString(KEY_keyword, "1");
+			editor.commit();
+			Toast.makeText(getApplicationContext(), "软件首次运行导致软件初始化失败，\n请重启软件后再进行关键字和网站的修改。", Toast.LENGTH_LONG).show();
+		}else System.out.println(text);
 		
 	}
 
@@ -88,6 +115,41 @@ public class Home extends ActionBarActivity {
 		}
 		
 	}
+	
+	
+	Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+	
+	@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+	
+	private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+        	ExitApplication.getInstance().exit(this);
+//        	finish();
+//        	System.exit(0);
+        }
+    }
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

@@ -36,11 +36,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:gravity="center_vertical"
-                android:paddingLeft="8dip"
-                android:text="反馈"
+                android:gravity="center"
+                android:layout_marginRight="54dip"
+                android:text="反馈 "
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textSize="20dip"
                 android:textStyle="bold" />
        </LinearLayout>
 	<EditText

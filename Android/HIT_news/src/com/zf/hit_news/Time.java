@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ public class Time extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ExitApplication.getInstance().addActivity(this);
+		
 		setContentView(R.layout.time);
 //		Timesub=(Button)findViewById(R.id.Timesub);
 		timeswitch=(Button)findViewById(R.id.Timeswitch);
@@ -40,10 +43,10 @@ public class Time extends ActionBarActivity {
 		timeon = mShared.getString(KEY_time,"1");
 		if(timeon.equals("1")){
 			timeswitch.setText("开");
-			}
-			else if(timeon.equals("0")){
-				timeswitch.setText("关");
-			}
+		}
+		else if(timeon.equals("0")){
+			timeswitch.setText("关");
+		}
 		System.out.println("2"+timeon);
 		ButtonListener listener=new ButtonListener();
 		timetoHome.setOnClickListener(listener);
@@ -77,12 +80,14 @@ public class Time extends ActionBarActivity {
 				if(timeon.equals("1")){
 				timeswitch.setText("关");
 				System.out.println("定时推送关");
+				Toast.makeText(getApplicationContext(), "推送已关闭", Toast.LENGTH_SHORT).show();
 				JPushInterface.stopPush(getApplicationContext());
 				timeon = "0";
 				}
 				else if(timeon.equals("0")){
 					timeswitch.setText("开");
 					System.out.println("定时推送开");
+					Toast.makeText(getApplicationContext(), "推送已开启", Toast.LENGTH_SHORT).show();
 					JPushInterface.resumePush(getApplicationContext());
 					timeon="1";
 				}
@@ -97,6 +102,14 @@ public class Time extends ActionBarActivity {
 		}
 		
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {  
+		if(keyCode == KeyEvent.KEYCODE_BACK){                             
+			finish();
+	    }  
+	    return false;  
+	}
+	
 /*	class TimeListener implements OnTimeChangedListener{
 		@Override
 		public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
